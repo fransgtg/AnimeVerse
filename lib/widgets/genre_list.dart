@@ -5,12 +5,13 @@ class GenreList extends StatelessWidget {
     "All", "Action", "Adventure", "Comedy", "Drama", "Fantasy",
     "Horror", "Mystery", "Romance", "Sci-Fi", "Slice of Life",
   ];
-  final String selected;
+  //genre yang sedang dipilih (kosong = "All")
+  final Set<String> selected;
   final ValueChanged<String>? onGenreSelected;
 
   const GenreList({
     super.key,
-    this.selected = "All",
+    this.selected = const {},
     this.onGenreSelected,
   });
 
@@ -26,13 +27,15 @@ class GenreList extends StatelessWidget {
       ),
       child: Row(
         children: genres.map((genre) {
-          final isActive = genre == selected;
+          final isActive =
+              genre == "All" ? selected.isEmpty : selected.contains(genre);
           return Padding(
             padding: EdgeInsets.only(right: screenWidth * 0.06),
             child: InkWell(
               borderRadius: BorderRadius.circular(screenWidth * 0.06),
               onTap: () {
-                // TODO: Update the selected genre and filter the anime list accordingly
+                // laporkan  genre yang ditekan ke atas
+                onGenreSelected?.call(genre);
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
@@ -42,7 +45,8 @@ class GenreList extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(screenWidth *
                       0.06),
-                  color: const Color(0xFF0b395e),
+                  //PERUBAHAN 2: warna chip aktif (di dalamm BoxDecoration) dan warna teks (di dalam Text) berubah sesuai status aktif atau tidak
+                  color: isActive ? const Color(0xFF1976D2) : const Color(0xFF0b395e),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.3),

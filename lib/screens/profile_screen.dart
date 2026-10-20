@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/app_scaffold.dart';
 import '../widgets/profile_button.dart';
-import 'signin_screen.dart';
+import 'package:go_router/go_router.dart';
+import '../config/routes.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -118,10 +119,7 @@ class ProfileScreen extends StatelessWidget {
                   0.02),
               child: ElevatedButton.icon(
                 onPressed: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (_) => const SignInScreen()),
-                    (route) => false,
-                  );
+                  context.go(AppRoutes.signIn);
                 },
                 icon: Icon(Icons.logout, size: screenWidth * 0.05),
                 label: Text('Logout', style: TextStyle(fontSize:

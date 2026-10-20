@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'screens/signin_screen.dart';
+import 'package:provider/provider.dart';
+import 'config/routes.dart';
+import 'providers/app_state_provider.dart';
+
+final _router = createRouter();
 
 void main() {
   runApp(const MyApp());
@@ -10,13 +14,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Anime Verse ',
-      theme: ThemeData(
-        fontFamily: 'Urbanist',
+    return ChangeNotifierProvider(
+      create: (_) => AppStateProvider(),
+      child: MaterialApp.router(
+        title: 'Anime Verse ',
+        theme: ThemeData(
+          fontFamily: 'Urbanist',
+        ),
+        routerConfig: _router,
+        debugShowCheckedModeBanner: false,
       ),
-      home: const SignInScreen(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
